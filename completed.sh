@@ -13,7 +13,6 @@ else
 fi
 
 # runs script that actually updates log file
-$SCRIPT --torrentname $torrentname --log_path $LOG_FILE --element $ELEMENT
-
+$SCRIPT --log_path "$LOG_FILE" --element "$ELEMENT" --torrentname "$torrentname" 
 # uploads logfile to dropbox
 $EXEC upload "$LOG_FILE" "$DROPBOX"
