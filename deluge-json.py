@@ -6,11 +6,12 @@ from StringIO import StringIO
 def usage():
 	print 'usage: '
 	print '\t' + 'python deluge-json.py' + ' --torrentname <name> --log_path <path>'
+	print '\t' + 'python deluge-json.py' + ' --no-write --torrentname <name> --log_path <path>'
 
 
 def main(argv):
 	try:
-		opts, args = getopt.getopt(argv,"h",["torrentid=","torrentname=","torrentpath=","log_path=","no-write"])
+		opts, args = getopt.getopt(argv,"h",["torrentid=","torrentname=","torrentpath=","log_path=","no-write","element="])
    	except getopt.GetoptError as err:
 		usage()
 		sys.exit(2)
@@ -33,7 +34,10 @@ def main(argv):
 		elif opt in ("--no-write"):
 			no_write = 1
 			args_len += 1
-	if args_len < 2:
+		elif opt in ("--element"):
+			element = arg
+			args_len += 1
+	if args_len < 3:
 		usage()
 		sys.exit()
 	print str(log_path)
@@ -43,20 +47,26 @@ def main(argv):
 	try:
 		json_data = open(log_path)
 		data = json.load(json_data)
-		data["completed"].append( new_completed )
+		data[element].append(new_completed)
+		json_data.close()
+	except AttributeError:
+		data[element] = [data[element]]
+		data[element].append(new_completed)
 		json_data.close()
 	except KeyError:
-		data["completed"] = new_completed
+		data[element] = [new_completed]
+		json_data.close()
 	except (IOError, ValueError):
 		data = {}
-		data["completed"] = new_completed
+		data[element] = [new_completed]
 
+	dump = json.dumps(data, sort_keys=True,indent=2, separators=(',', ': '))
 	if not no_write:
 		json_data = open(log_path,"wb")
-		json_data.write(json.dumps(data))
+		json_data.write(dump)
 		json_data.close()
 	else:
-		print json.dumps(data, sort_keys=True,indent=2, separators=(',', ': '))
+		print dump
 	
 
 if __name__ == "__main__":

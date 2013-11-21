@@ -1,0 +1,9 @@
+DROPBOX=framboesa
+
+LOG_FILE=~/torrents/$ELEMENT.log
+
+EXEC=~/work/Dropbox-Uploader/dropbox_uploader.sh
+
+SCRIPT_FILE=~/work/deluge-commands/deluge-json.py
+
+SCRIPT="python $SCRIPT_FILE" 

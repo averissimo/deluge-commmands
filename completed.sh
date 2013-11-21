@@ -1,27 +1,19 @@
-#!/bin/bash
+#!/bin/sh
 torrentname=$2
 
-TO=1 # 0 for added 1 for completed
+ELEMENT=completed
 
-PARENT=/home/pi/torrents
-LOG_ADDED_FILE=$PARENT/added.log
-LOG_COMPLETED_FILE=$PARENT/completed.log
-
-DROPBOX=framboesa
-
-EXEC=/home/pi/work/Dropbox-Uploader/dropbox_uploader.sh
-SCRIPT="python /home/pi/work/deluge-commands/deluge-json.py"
-
-if [ $TO = 0 ] ; then
-	UPLOAD_FILE=$LOG_ADDED_FILE
+RCFILE=~/.deluge-commandsrc
+if [ -f $RCFILE ]; then
+	. $RCFILE
 else
-	UPLOAD_FILE=$LOG_COMPLETED_FILE
+	echo "please create $RCFILE"
+	echo "\t(see deluge-commandsrc.example)"
+	return
 fi
 
 # runs script that actually updates log file
-$SCRIPT --torrentname $torrentname --log_path $UPLOAD_FILE
+$SCRIPT --torrentname $torrentname --log_path $LOG_FILE --element $ELEMENT
 
 # uploads logfile to dropbox
-$EXEC upload "$UPLOAD_FILE" "$DROPBOX"
-
-
+$EXEC upload "$LOG_FILE" "$DROPBOX"
