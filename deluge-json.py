@@ -4,10 +4,14 @@ import sys, getopt, datetime
 from StringIO import StringIO
 
 def usage():
-	print 'usage: '
-	print '\t' + 'python deluge-json.py' + ' --torrentname <name> --log_path <path>'
-	print '\t' + 'python deluge-json.py' + ' --no-write --torrentname <name> --log_path <path>'
-
+	print 'usage: '+ 'python deluge-json.py' + ' [--no-write ]--torrentname <name> --log_path <path>'
+	print ''
+	print 'options:'
+	print '\t --no-write\n\t\tonly print result and do not write to file'
+	print '\t --torrentname\n\t\tname of torrent'
+	print '\t --log_path\n\t\tpath to log file'
+	print ''
+	print '\tnote: if name or path has spaces, then it should be surrounded by ""'
 
 def main(argv):
 	try:
