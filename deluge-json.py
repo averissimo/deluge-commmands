@@ -47,11 +47,11 @@ def main(argv):
 	try:
 		json_data = open(log_path)
 		data = json.load(json_data)
-		data[element].append(new_completed)
+		data[element].insert(0,new_completed)
 		json_data.close()
 	except AttributeError:
 		data[element] = [data[element]]
-		data[element].append(new_completed)
+		data[element].insert(0,new_completed)
 		json_data.close()
 	except KeyError:
 		data[element] = [new_completed]

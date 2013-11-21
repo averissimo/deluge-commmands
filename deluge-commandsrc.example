@@ -1,6 +1,6 @@
 DROPBOX=framboesa
 
-LOG_FILE=~/torrents/$ELEMENT.log
+LOG_FILE=~/torrents/$ELEMENT.json
 
 EXEC=~/work/Dropbox-Uploader/dropbox_uploader.sh
 
