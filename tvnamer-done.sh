@@ -5,8 +5,10 @@ torrentpath=$3
 
 DIR=/home/pi/torrents/series-b4tvnamer
 ANIME_DIR=/home/pi/torrents/anime-b4tvnamer
+
 CONFIG=/home/pi/.tvnamer/config.json 
 ANIME_CONFIG=/home/pi/.tvnamer/config.anime.json 
+
 EXEC="python /home/pi/work/tvnamer/tvnamer/main.py"
 #EXEC=/usr/local/bin/tvnamer
 
